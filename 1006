@@ -1,0 +1,31 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+int dp[55][55][55][55];
+int maps[55][55];
+int main()
+{
+    int n,m;
+    scanf("%d%d",&n,&m);
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++)
+        scanf("%d",&maps[i][j]);
+    dp[1][2][2][1]=maps[1][2]+maps[2][1];
+    for(int x1=1;x1<=n;x1++)
+      for(int y1=1;y1<=m;y1++)
+        for(int x2=1;x2<=n;x2++)
+          for(int y2=1;y2<=m;y2++)
+          {
+              if((x1!=x2||y1!=y2))
+              {
+                  dp[x1][y1][x2][y2]=max(dp[x1][y1][x2][y2],dp[x1-1][y1][x2-1][y2]+maps[x1][y1]+maps[x2][y2]);
+                  dp[x1][y1][x2][y2]=max(dp[x1][y1][x2][y2],dp[x1-1][y1][x2][y2-1]+maps[x1][y1]+maps[x2][y2]);
+                  dp[x1][y1][x2][y2]=max(dp[x1][y1][x2][y2],dp[x1][y1-1][x2-1][y2]+maps[x1][y1]+maps[x2][y2]);
+                  dp[x1][y1][x2][y2]=max(dp[x1][y1][x2][y2],dp[x1][y1-1][x2][y2-1]+maps[x1][y1]+maps[x2][y2]);
+              }
+          }
+    printf("%d",dp[n][m-1][n-1][m]);
+    return 0;
+}
