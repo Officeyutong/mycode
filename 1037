@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <string>
+using namespace std;
+string n;
+int m;
+int f[10][10], sum[10] = {0};
+int ans[100], len = 0;
+void Floyed() {
+    for (int k = 1; k <= 9; k++) {
+        for (int i = 0; i <= 9; i++) {
+            f[i][i] = 1;
+            for (int j = 1; j <= 9; j++) {
+                if (f[i][k] && f[k][j]) {
+                    f[i][j] = 1;
+                }
+            }
+        }
+    }
+}
+void mul(int t) {
+    for (int i = 0; i <= len; i++) {
+        ans[i] *= t;
+    }
+    for (int i = 0; i <= len; i++) {
+        ans[i+1] += ans[i]/10;
+        ans[i] %= 10;
+    }
+    if (ans[len+1] != 0)    len++;
+}
+int main() {
+    cin >> n >> m;
+    memset(f, 0, sizeof(f));
+    for (int i = 0; i < m; i++) {
+        int a, b;
+        cin >> a >> b;
+        f[a][b] = 1;
+    }
+    Floyed();
+    for (int i = 0; i <= 9; i++) {
+        for (int j = 0; j <= 9; j++) {
+            if (f[i][j]) {
+                sum[i]++;
+            }
+        }
+    }
+    memset(ans, 0, sizeof(ans));
+    ans[0] = 1;
+    for (int i = 0; i < n.length(); i++) {
+        mul(sum[n[i]-'0']);
+    }
+    for (int i = len; i >= 0; i--) {
+        cout << ans[i];
+    }
+    return 0;
+}
