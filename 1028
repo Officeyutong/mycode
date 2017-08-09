@@ -1,0 +1,19 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+long long t;
+void work(long long a){
+	long long i;
+	++t;
+	if (a/2>=1) 
+	  for (i=1;i<=a/2;++i){	
+	  work(i); 
+    }
+}
+int main(){
+	long n;
+	t=0;
+	cin>>n;
+	work(n);
+	cout<<t;
+}
