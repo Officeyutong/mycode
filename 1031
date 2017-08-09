@@ -1,0 +1,23 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+int n,ave;
+int a[10010];
+int ans;
+
+int main(){
+    scanf("%d",&n);
+    for (int i=1;i<=n;++i){
+        scanf("%d",&a[i]);
+        ave+=a[i];
+    }
+    ave/=n;
+    for (int i=1;i<=n;++i){
+        if (a[i]!=ave){
+            a[i+1]+=a[i]-ave;
+            ans++;
+        }
+    }
+    cout<<ans;
+    return 0;
+}
