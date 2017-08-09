@@ -1,0 +1,15 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+long n,s=0,i=1,k;
+int main(){
+    cin>>n;
+    while (s+i<n){
+        s+=i;
+        ++i;
+    }
+    ++i;
+    k=n-s;
+    if (i%2==1) cout<<k<<"/"<<i-k;
+    else cout<<i-k<<"/"<<k; 
+} 
