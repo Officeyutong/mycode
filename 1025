@@ -1,0 +1,23 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+int num[7];
+int n,k,ans;
+void dfs(int depth,int sum){
+    if(depth==k){
+        ans++;
+        return;
+    }
+    for(int i=num[depth-1];i<=(n-sum)/(k-depth+1);i++){
+        num[depth]=i;
+        dfs(depth+1,sum+i);
+    }
+    return;
+}
+int main(){
+    cin>>n>>k;
+    num[0]=1;
+    dfs(1,0);
+    cout<<ans;
+    return 0;
+}
