@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+const int inf=0x7f;
+int map[10][10];
+int f[10][10][10][10];
+int n,x,y,s;
+int main()
+{
+    cin>>n;
+    cin>>x>>y>>s;
+    while (x||y||s)
+    {
+        map[x][y]=s;
+        cin>>x>>y>>s;
+    }
+    for (int x1=1;x1<=n;++x1)
+      for (int y1=1;y1<=n;++y1)
+        for (int x2=1;x2<=n;++x2)
+          for (int y2=1;y2<=n;++y2)
+        {
+            int tmp=-inf;
+            tmp=max(tmp,f[x1-1][y1][x2-1][y2]);
+            tmp=max(tmp,f[x1-1][y1][x2][y2-1]);
+            tmp=max(tmp,f[x1][y1-1][x2-1][y2]);
+            tmp=max(tmp,f[x1][y1-1][x2][y2-1]);    
+            if (x1==x2&&y1==y2)
+              f[x1][y1][x2][y2]=tmp+map[x1][y1];
+            else f[x1][y1][x2][y2]=tmp+map[x1][y1]+map[x2][y2];
+        }
+    cout<<f[n][n][n][n];
+    return 0;
+}
