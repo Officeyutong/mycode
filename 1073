@@ -1,0 +1,93 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+#include<queue>
+#include<vector>
+using namespace std;
+
+int n,m,ans;
+int x,y,z;
+
+struct line{
+	int from,to;
+};
+
+vector<line> edge; 
+vector<int> G[100010];
+vector<line> edgef;
+vector<int> F[100010];
+int minn[100010];
+int v[100010];
+bool vis[100010];
+
+void addedge(int from,int to){
+	edge.push_back((line){from,to});
+	int m=edge.size();
+	G[from].push_back(m-1);
+	edgef.push_back((line){to,from});
+	m=edgef.size();
+	F[to].push_back(m-1);
+}
+
+void bfs_findmin(){
+	queue<int> q;
+	q.push(1);
+	minn[1]=v[1];
+	while (!q.empty()){
+		int now=q.front();
+		q.pop();
+		vis[now]=false;
+		for (int i=0;i<G[now].size();++i){
+			int nxt=edge[G[now][i]].to;
+			int t=min(minn[now],v[now]);
+			if (minn[nxt]>t){
+				minn[nxt]=t;
+				if (!vis[nxt]){
+					q.push(nxt);
+					vis[nxt]=true;
+				}
+			}
+		}
+	}
+}
+
+void bfs_access(){
+	memset(vis,false,sizeof(vis));
+	queue<int> q;
+	q.push(n);
+	vis[n]=true;
+	while (!q.empty()){
+		int now=q.front();
+		q.pop();
+		for (int i=0;i<F[now].size();++i){
+			int nxt=edgef[F[now][i]].to;
+			if (!vis[nxt]){
+				q.push(nxt);
+				vis[nxt]=true;
+			}
+		}
+	}
+}
+
+
+int main(){
+	scanf("%d%d",&n,&m);
+    for (int i=1;i<=n;++i) minn[i]=2<<29;
+	for (int i=1;i<=n;++i){
+		scanf("%d",&v[i]);
+	}
+	for (int i=1;i<=m;++i){
+		scanf("%d%d%d",&x,&y,&z);
+		addedge(x,y);
+		if (z==2) addedge(y,x);
+	}
+	bfs_findmin();
+	bfs_access();
+	for (int i=1;i<=n;++i){
+		if (vis[i]) ans=max(v[i]-minn[i],ans);
+	}
+	printf("%d",ans);
+	return 0; 
+}
