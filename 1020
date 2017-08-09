@@ -1,0 +1,24 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+int f[1010],g[1010];
+int h[1010];
+int n=0;
+int main(){
+    while (cin>>h[++n]);
+    n--;
+    for (int i=1;i<=n;++i){
+        for (int j=1;j<=i;++j){
+            if (h[j]>=h[i]) f[i]=max(f[i],f[j]); 
+            else g[i]=max(g[i],g[j]);
+        }
+        f[i]++;
+        g[i]++;
+    }
+    int ansa=0,ansb=0;
+    for (int i=1;i<=n;++i){
+        ansa=max(ansa,f[i]);
+        ansb=max(ansb,g[i]);
+    }
+    cout<<ansa<<endl<<ansb;
+}
