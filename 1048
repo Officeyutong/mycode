@@ -1,0 +1,28 @@
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+
+int t[1010],v[110];
+int f[110][1010];
+int T,M;
+int ans=0;
+
+int main(){
+    scanf("%d%d",&T,&M);
+    for (int i=1;i<=M;++i){
+        scanf("%d%d",&t[i],&v[i]);
+    }
+    
+    for (int i=1;i<=M;++i){
+        for (int j=0;j<=T;++j){
+            if (j>=t[i])
+            f[i][j]=max(f[i-1][j],f[i-1][j-t[i]]+v[i]);
+            else f[i][j]=f[i-1][j];
+        }
+    }
+    cout<<f[M][T];
+    return 0;
+}
