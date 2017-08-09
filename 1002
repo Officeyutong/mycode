@@ -1,0 +1,24 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+bool ok[25][25];
+int dx[8]={-2,-1,1,2,2,1,-1,-2};
+int dy[8]={1,2,2,1,-1,-2,-2,-1};
+long long f[25][25];
+long long n,m,hx,hy;
+int main()
+{
+    cin>>n>>m>>hx>>hy;
+    n++; m++; hx++; hy++;
+    f[0][1]=1;
+    ok[hx][hy]=true;
+    for (int i=0;i<8;++i)
+        ok[hx+dx[i]][hy+dy[i]]=true;
+    for (int i=1;i<=n;++i)
+      for (int j=1;j<=m;++j)
+      {
+            if (ok[i][j]) continue;
+            else f[i][j]=f[i-1][j]+f[i][j-1];
+      }
+    cout<<f[n][m];
+}
