@@ -1,0 +1,74 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#include<cstdlib>
+using namespace std;
+char orig[1000];
+char s[1000];
+int data_number;
+int mode;
+int len[1000];
+void print(int file_number){
+		strcpy(s,"");
+		strcpy(s,orig);
+		char add[1000];
+		sprintf(add,"%d",file_number);
+		strcat(s,add);
+		strcat(s,".in");
+		freopen(s,"w",stdout);
+}
+void close(){
+	fclose(stdin);
+	fclose(stdout);
+}
+int t[10000010];
+void pailie(){
+	cout<<"please insert the length(every)(if you want all the same please insert 0 and the value you want):\n";
+	
+	scanf("%d%d",&len[1],&len[2]);
+	if (len[1]==0){
+		for (int i=1;i<=data_number;++i)
+		  len[i]=len[2];
+	}else{
+		for (int i=3;i<=data_number;++i)
+		  scanf("%d",&len[i]);
+	}
+		
+	cout<<endl;
+	cout<<"please wait for a minute......\n";
+	cout<<"if the program exit with the value 0\n";
+	cout<<"It runs successfully.\n";
+	for (int ii=1;ii<=data_number;++ii){
+		print(ii);
+	    for (int i=1;i<=len[ii];++i)
+	        t[i]=i;
+	    random_shuffle(t+1,t+1+len[ii]);
+        for (int i=1;i<=len[ii];++i) printf("%d ",t[i]);
+        close();
+    }
+}
+
+int main(){
+	cout<<"file name:";
+	scanf("%s",orig);
+	cout<<endl;
+	cout<<"file name sucessfully loaded\n";
+	cout<<"how many data you want?:";
+	scanf("%d",&data_number);
+	cout<<endl;
+	cout<<"please select mode\n";
+	cout<<"1:summon random pailie\n";
+	cout<<"2:summon random tree\n";
+	cout<<"3:summon random graph\n";
+	cout<<"4:summon random string\n";
+	cout<<"you choose is:";
+	scanf("%d",&mode);
+	cout<<endl;
+	//cout<<"please wait for a minute.......\n";
+	if (mode==1){
+		pailie();
+	}
+	return 0;
+}
