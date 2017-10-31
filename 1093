@@ -1,0 +1,29 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+struct node {
+    int c,s,e,h,t;
+}m[10001];
+bool cmp(const node &a,const node &b) {
+    if(a.t>b.t) return true;
+    if(a.t==b.t&&a.c>b.c) return true;
+    if(a.t==b.t&&a.c==b.c&&a.h<b.h) return true;
+    return false;
+}
+
+int n;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin>>n;
+    for(int i=1;i<=n;++i) {
+        cin>>m[i].c>>m[i].s>>m[i].e;
+        m[i].h=i;
+        m[i].t=m[i].c+m[i].s+m[i].e;
+    }
+    sort(m+1,m+n+1,cmp);
+    for(int i=1;i<=5;++i) cout<<m[i].h<<" "<<m[i].t<<endl;
+    return 0;
+}
