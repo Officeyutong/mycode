@@ -1,0 +1,28 @@
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+using namespace std;
+int f[110][110];
+int a[110];
+int m,n,max=0;
+int main()
+{
+    cin>>n>>m;
+    for (int i=1;i<=n;++i) cin>>a[i];
+    f[0][0]=1;
+    for (int i=1;i<=n;++i) //ji zhong
+      for (int j=0;j<=m;++j) //ge shu
+        for (int k=0;k<=min(j,a[i]);++k) //fang ji pen
+        f[i][j]=(f[i][j]+f[i-1][j-k]) %1000007;
+    //or:
+    //for (int i=1;i<=n;++i) f[i][0]=0; //0pen hua jiu yi zhong ke neng xing
+    //for (int i=1;i<=n;++i) //ji zhong
+    //for (int j=0;j<=m;++j) //ji pen
+    //for (int k=j;k>=m-a[j];--k) //zhe zhong hua fang ji pen
+    //{
+    //  if (k>=0) {f[i][j]+=f[i-1][k]%1000007; f[i][j]%=10000007}
+    //  else break;
+    //}
+    cout<<f[n][m];
+    return 0;
+}
