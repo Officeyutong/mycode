@@ -1,0 +1,23 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+using namespace std;
+
+int m,s,t;
+
+int main() {
+    cin>>m>>s>>t;
+    int s1=0,s2=0,t1=t;
+    while(s>s1 && t>0) {
+        s1+=17;
+        if(m>=10) s2+=60,m-=10;
+        else m+=4;
+        s1=max(s1,s2);
+        t--;
+    }
+    if(s1<s)
+        cout<<"No"<<endl<<s1;
+    else
+        cout<<"Yes"<<endl<<t1-t;
+    return 0;
+}
