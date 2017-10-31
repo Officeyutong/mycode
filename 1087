@@ -1,0 +1,27 @@
+#include<string>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int n,i;
+string s;
+char fbi(int L,int R) 
+{
+    if (find(s.begin()+L,s.begin()+R+1,'1')==s.begin()+R+1) return 'B';  
+    if (find(s.begin()+L,s.begin()+R+1,'0')==s.begin()+R+1) return 'I';  
+    return 'F';  
+}
+void bl(int l,int r)  
+{
+    if (l!=r)  
+    {
+        bl(l,(l+r)/2);  
+        bl((l+r)/2+1,r);  
+    }
+    cout<<fbi(l,r);  
+}
+int main()
+{
+    cin>>n>>s; 
+    bl(0,s.length()-1);  
+    return 0;  
+}
